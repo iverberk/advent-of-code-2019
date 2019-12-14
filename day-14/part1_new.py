@@ -30,10 +30,12 @@ def process(output_chemical, output_quantity=1, input_chemical=None, input_quant
 
     output_quantity, *input_chemicals = output_chemicals[output_chemical]
 
-    for input_chemical in input_chemicals:
+    for _ in range(output_quantity):
 
-        input_quantity, input_chemical = input_chemical
+        for input_chemical in input_chemicals:
 
-        process(input_chemical, int(input_quantity), output_chemical, int(output_quantity))
+            input_quantity, input_chemical = input_chemical
+
+            process(input_chemical, int(input_quantity), output_chemical, int(output_quantity))
 
 print(process('FUEL'))
