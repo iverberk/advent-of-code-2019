@@ -19,18 +19,13 @@ ores = 0
 extra = defaultdict(int)
 
 
-def process(output_chemical, output_quantity=1, input_chemical=None, input_quantity=0, required_output=1):
+def process(output_chemical, output_quantity=1, input_chemical=None, input_quantity=0):
 
-    # print("INPUT:", output_quantity, output_chemical, input_quantity, input_chemical, required_output)
-    # print()
+    print("INPUT:", output_quantity, output_chemical, input_quantity, input_chemical)
 
     # End of the line, calculate ores
     if output_chemical == 'ORE':
-
-        print("INPUT:", output_quantity, output_chemical, input_quantity, input_chemical, required_output)
-        ores = output_quantity * ((required_output // input_quantity) + (required_output % input_quantity > 0))
-
-        print(ores, extra)
+        print("ORE")
         return
 
     output_quantity, *input_chemicals = output_chemicals[output_chemical]
