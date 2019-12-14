@@ -28,14 +28,18 @@ def process(output_chemical, output_quantity=1, input_chemical=None, input_quant
         print("ORE")
         return
 
+    m = output_quantity
+
     output_quantity, *input_chemicals = output_chemicals[output_chemical]
 
-    for _ in range(output_quantity):
+    for _ in range(m):
 
         for input_chemical in input_chemicals:
 
             input_quantity, input_chemical = input_chemical
 
             process(input_chemical, int(input_quantity), output_chemical, int(output_quantity))
+
+            break
 
 print(process('FUEL'))
