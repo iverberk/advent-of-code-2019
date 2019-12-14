@@ -27,9 +27,10 @@ def process(output_chemical, output_quantity=1, input_chemical=None, input_quant
 
     print("INPUT:", output_quantity, output_chemical, input_quantity, input_chemical)
 
+    extra[input_chemical] += output_quantity
+
     # End of the line, calculate ores
     if output_chemical == 'ORE':
-        extra[input_chemical] += output_quantity - 1
 
         print("ores: ", output_quantity, extra)
         return
@@ -45,7 +46,5 @@ def process(output_chemical, output_quantity=1, input_chemical=None, input_quant
             input_quantity, input_chemical = input_chemical
 
             process(input_chemical, int(input_quantity), output_chemical, int(output_quantity))
-
-            break
 
 print(process('FUEL'))
