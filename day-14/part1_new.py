@@ -21,11 +21,17 @@ extra = defaultdict(int)
 
 def process(output_chemical, output_quantity=1, input_chemical=None, input_quantity=0):
 
+    if extra[input_chemical] > 0:
+        extra[input_chemical] -= 1
+        return
+
     print("INPUT:", output_quantity, output_chemical, input_quantity, input_chemical)
 
     # End of the line, calculate ores
     if output_chemical == 'ORE':
-        print("ORE")
+        extra[input_chemical] += output_quantity - 1
+
+        print("ores: ", output_quantity, extra)
         return
 
     m = output_quantity
