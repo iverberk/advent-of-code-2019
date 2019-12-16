@@ -153,6 +153,7 @@ intcode = Intcode(memory)
 robot = Robot(0, 0)
 seen, queue = set([(0, 0)]), deque([[(0, 0, 0)]])
 
+# Find the oxygen and build the map
 while queue:
     path = queue.popleft()
 
@@ -172,4 +173,51 @@ while queue:
     path.reverse()
     robot.take_path(path, reverse=True)
 
-print_area()
+oxygen = None
+for location, status in area.items():
+    if status == 'O':
+        oxygen = location
+
+print(oxygen)
+
+
+def nb(pos):
+    x, y = pos
+    neighbours = []
+    if area[(x, y - 1)] == '.':
+        neighbours.append((x, y - 1))
+
+    if area[(x, y + 1)] == '.':
+        neighbours.append((x, y + 1))
+
+    if area[(x + 1, y)] == '.':
+        neighbours.append((x + 1, y))
+
+    if area[(x - 1, y)] == '.':
+        neighbours.append((x - 1, y))
+
+    return neighbours
+
+
+# Run the search again, this time from the oxygen location
+seen, queue = set([oxygen]), deque([[oxygen]])
+time = 0
+while queue:
+    path = queue.popleft()
+
+    if len(path) > time:
+        time = len(path)
+
+    pos = path[-1]
+
+    for neighbour in nb(pos):
+        x, y = neighbour
+        if (x, y) not in seen:
+            seen.add((x, y))
+
+            new_path = list(path)
+            new_path.append((x, y))
+
+            queue.append(new_path)
+
+print(time - 1)
