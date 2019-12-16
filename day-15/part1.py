@@ -12,8 +12,8 @@ class Direction(enum.Enum):
 
 class Robot:
     def __init__(self, x, y):
-        self.self.x = x
-        self.self.y = y
+        self.x = x
+        self.y = y
 
     def get_location(self):
         return (self.x, self.y)
@@ -105,13 +105,17 @@ with open('input') as f:
 intcode = Intcode(memory)
 
 robot = Robot(0, 0)
-seen, queue = set([(0, 0)]), deque([0, 0])
+seen, queue = set([(0, 0)]), deque([[(0, 0, Direction.North)]])
 
 while queue:
-    x, y, direction = queue.popleft()
+    path = queue.popleft()
+
+    robot.take_path(path, reverse=False)
 
     for neighbour in robot.get_neighbours():
         if neighbour not in seen:
             seen.add(neighbour)
             queue.append(neighbour)
     break
+
+    robot.take_path(path, reverse=True)
